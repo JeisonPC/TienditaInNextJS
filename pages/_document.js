@@ -4,7 +4,6 @@ export default function Document() {
   return (
     <Html lang="es">
       <Head>
-        <meta name="description" content="Tiendita - Venta de Muchas cosas" />
         <link
           rel="stylesheet"
           href="https://necolas.github.io/normalize.css/8.0.1/normalize.css"

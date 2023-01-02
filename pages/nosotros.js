@@ -1,12 +1,8 @@
 import React from "react";
 import Layout from "../components/layout";
 
-function nosotros() {
-  return (
-    <Layout>
-      <h1>Nosotros</h1>
-    </Layout>
-  );
+function Nosotros() {
+  return <Layout title={"Nosotros"} description={"Tiendita Amigable"}></Layout>;
 }
 
-export default nosotros;
+export default Nosotros;
