@@ -81,6 +81,7 @@
 
 html,
 body {
+  background-color: #FFC09F;
   max-width: 100vw;
   overflow-x: hidden;
   font-family: 'Quicksand', sans-serif;
