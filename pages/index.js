@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import NavBar from "../components/NavBar";
 import Layout from "../components/layout";
-import Productos from "../components/productos";
+import Productos from "../components/producto";
 import Slider from "../components/slider";
 
 export default function Home({productos}) {

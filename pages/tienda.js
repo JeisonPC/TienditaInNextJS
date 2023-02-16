@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Layout from "../components/layout";
-import Productos from "../components/productos";
+import Producto from "../components/producto";
 
-export default function tienda({productos}) {
-  console.log(productos);
+export default function tienda({data}) {
+  console.log("productos en tienda.js",data);
 
   return (
     <Layout>
       <h1>Colección</h1>
 
-      {productos.map(producto => (
-        <Productos
+      {data.map(producto => (
+        <Producto
           key={producto.id}
-          id={producto.id}
-          title={producto.title}
-          image={producto.image}
-          price={producto.price}
-          description={producto.description}
+          producto={producto.attributes}
         />
       ))}
 
@@ -26,14 +21,14 @@ export default function tienda({productos}) {
 }
 
 export async function getServerSideProps() {
-  const respuesta = await fetch('https://fakestoreapi.com/products')
-  const productos = await respuesta.json();
+  const respuesta = await fetch(`https://prawie-backend.fly.dev/api/products?populate=*`)
+  const {data} = await respuesta.json();
 
-  console.log(productos)
+  console.log(data)
 
   return {
     props: {
-      productos,
+      data,
     }, // will be passed to the page component as props
   };
 }
