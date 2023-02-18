@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Productos(producto) {
-  const { title, price, images, description, id } = producto.producto;
-  console.log("Ti", { producto });
+export default function Productos(producto, key) {
+   const { title, price, images, description} = producto.producto;
+
+   console.log("item", producto.id);
 
   return (
     <div>
@@ -17,8 +18,8 @@ export default function Productos(producto) {
       hol
       <p>{description}</p>
       {price}
-      <p>{price}</p>
-      <Link href={`/productos/${id}`}>Ver Producto</Link>
+      <p></p>
+        <Link href={`/productos/${producto.id}`}>Ver Producto</Link>
     </div>
   );
 }

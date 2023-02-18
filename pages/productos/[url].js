@@ -4,13 +4,13 @@ import Image from "next/image";
 import Layout from "../../components/layout";
 
 export default function Producto({
-  product,
+  productoId,
   agregarCarrito,
   actualizarCantidad,
 }) {
   const [cantidad, setCantidad] = useState(0);
-  const { title, price, images, description, id } = product[0].attributes;
-  console.log("pagina show producto", product);
+   const { title, price, images, description } = productoId[0].attributes;
+  console.log("pagina show producto", productoId);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,12 +21,14 @@ export default function Producto({
     }
 
     const ProductoElegido = {
-      id,
+      id: productoId[0].id,
       title,
       price,
-      image,
+      imagen: images.data[0].attributes.url,
       cantidad,
     };
+
+    console.log("elegi",ProductoElegido)
 
     agregarCarrito(ProductoElegido);
   };
@@ -34,7 +36,7 @@ export default function Producto({
   return (
     <Layout>
       <div>
-        <h2>{title} </h2>
+         <h2>{title} </h2>
         <p>{description}</p>
         <p>{price}</p>
 
@@ -50,7 +52,10 @@ export default function Producto({
         <form onSubmit={handleSubmit}>
           <label htmlFor="cantidad">Cantidad:</label>
 
-          <select onChange={(e) => setCantidad(+e.target.value)} id="cantidad">
+          <select
+            onChange={(e) => setCantidad(Number(e.target.value))}
+            id="cantidad"
+          >
             <option value="0">--Seleccione la cantidad</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -68,13 +73,13 @@ export async function getServerSideProps({ params: { url } }) {
   const respuesta = await fetch(
     `https://prawie-backend.fly.dev/api/products?filters[id]=${url}&populate=images`
   );
-  const { data: product } = await respuesta.json();
+  const { data: productoId } = await respuesta.json();
 
-  console.log("propsproduct", product);
+  console.log("propsproduct", productoId);
 
   return {
     props: {
-      product,
+      productoId,
     }, // will be passed to the page component as props
   };
 }

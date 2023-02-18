@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/layout";
-import Producto from "../components/producto";
+import Item from "../components/item";
 
 export default function tienda({data}) {
-  console.log("productos en tienda.js",data);
+  console.log("productos en tienda.js", data[0].id);
 
   return (
     <Layout>
       <h1>Colección</h1>
 
       {data.map(producto => (
-        <Producto
+        <Item
           key={producto.id}
+          id= {producto.id}
           producto={producto.attributes}
         />
       ))}
@@ -24,7 +25,7 @@ export async function getServerSideProps() {
   const respuesta = await fetch(`https://prawie-backend.fly.dev/api/products?populate=*`)
   const {data} = await respuesta.json();
 
-  console.log(data)
+  console.log("productos en tienda.js backend",data)
 
   return {
     props: {
