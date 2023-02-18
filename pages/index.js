@@ -3,7 +3,7 @@ import Link from "next/link";
 import NavBar from "../components/NavBar";
 import Layout from "../components/layout";
 import Slider from "../components/slider";
-import Producto from "./productos/[url]";
+import Productos from "../components/Item";
 
 export default function Home({ productos }) {
   console.log("productos de la página inicial", productos);

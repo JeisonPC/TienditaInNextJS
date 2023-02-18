@@ -1,11 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/globals.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 config.autoAddCss = false;
 
 export default function App({ Component, pageProps }) {
-  const [carrito, setCarrito] = useState([]);
+
+  const carritoLS = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('carrito')) ?? [] : []
+
+  const [pageReady, setPageReady] = useState(false);
+
+  useEffect(() => {
+    setPageReady(true)
+
+  }, [])
+
+
+  const [carrito, setCarrito] = useState(carritoLS);
+
+  useEffect(() => {
+    localStorage.setItem('carrito',JSON.stringify(carrito))
+  }, [carrito])
+
 
   const agregarCarrito = (producto) => {
     // Comprobar si el producto ya esta en el carrito...
@@ -43,13 +59,12 @@ export default function App({ Component, pageProps }) {
     setCarrito(carritoActualizado);
     window.localStorage.setItem("carrito", JSON.stringify(carrito));
   };
-  return (
+  return pageReady ?
     <Component
       {...pageProps}
       carrito={carrito}
       agregarCarrito={agregarCarrito}
       eliminarProducto={eliminarProducto}
       actualizarCantidad={actualizarCantidad}
-    />
-  );
+    /> : null;
 }

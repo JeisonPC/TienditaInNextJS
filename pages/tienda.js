@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/layout";
-import Item from "../components/item";
+import Item from "../components/Item";
 
 export default function tienda({data}) {
   console.log("productos en tienda.js", data[0].id);
