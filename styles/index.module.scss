@@ -1,0 +1,10 @@
+.cardProducts {
+  background-color: white;
+  width: 4rem;
+  height: 10rem;
+  padding: 8rem;
+  box-sizing: border-box;
+  & img{
+    width: 100%;
+  }
+}

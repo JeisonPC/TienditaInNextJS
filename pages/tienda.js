@@ -21,6 +21,12 @@ export default function tienda({data}) {
   );
 }
 
+async function obtenerProductos() {
+  const res = await fetch('https://prawie-backend.fly.dev/api/products?populate=*');
+  const productos = await res.json();
+  return productos;
+}
+
 export async function getServerSideProps() {
   const respuesta = await fetch(`https://prawie-backend.fly.dev/api/products?populate=*`)
   const {data} = await respuesta.json();
