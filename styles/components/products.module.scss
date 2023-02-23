@@ -1,0 +1,45 @@
+.cardProducts {
+  background-color: white;
+  width: 30%;
+  height: auto;
+  padding: 2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0;
+  border-radius: 40px;
+  & a {
+    background-color: #7765E3;
+    border-radius: 4rem;
+    width: max-content;
+    color: white;
+  }
+  & > * {
+    align-items: center;
+  }
+  & .buttons {
+    display: flex;
+    gap: 4px;
+  }
+  & button {
+    border-radius: 4rem;
+    color: white;
+    background-color: #FF5D73;
+    border: none;
+    padding: 1rem;
+    margin: 0 0.25rem;
+  }
+}
+
+.cardImg {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F7F3E3;
+  & img {
+    object-fit: contain;
+  }
+}

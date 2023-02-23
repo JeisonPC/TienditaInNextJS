@@ -14,15 +14,15 @@ export default function Home({ products }) {
     <>
       <Layout title={"Inicio"} description={"Tiendita Amigable"}>
         <Slider />
-
-        {products.map((producto) => (
-          <div key={producto.id} className={styles.cardProducts}>
+        <div className={styles.containerProducts}>
+          {products.map((producto) => (
             <Item
+              key={producto.id}
               id={producto.id}
               producto={producto.attributes}
             />
-          </div>
-        ))}
+          ))}
+        </div>
       </Layout>
     </>
   );
