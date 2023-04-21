@@ -97,7 +97,7 @@
         }
 
         try {
-          const response = await fetch('http://localhost:1337/api/cotizations', {
+          const response = await fetch('https://prawie-backend.fly.dev/api/cotizations', {
             method: 'POST',
             body: formData
           });
