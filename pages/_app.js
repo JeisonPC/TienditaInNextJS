@@ -60,18 +60,15 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
     setCarrito(carritoActualizado);
     window.localStorage.setItem("carrito", JSON.stringify(carrito));
   };
-  /* return pageReady ?
-    <Component
-      {...pageProps}
-      carrito={carrito}
-      agregarCarrito={agregarCarrito}
-      eliminarProducto={eliminarProducto}
-      actualizarCantidad={actualizarCantidad}
-    /> : null; */
-    return (
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-      </SessionProvider>
-    );
+   return pageReady ?
+    <SessionProvider session={session}>
+      <Component
+        {...pageProps}
+        carrito={carrito}
+        agregarCarrito={agregarCarrito}
+        eliminarProducto={eliminarProducto}
+        actualizarCantidad={actualizarCantidad}
+      />
+    </SessionProvider> : null;
 
 }

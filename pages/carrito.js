@@ -9,19 +9,24 @@ export default function Carrito({ carrito, actualizarCantidad, eliminarProducto 
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    const calculoTotal = carrito.reduce(
-      (total, producto) => total + producto.cantidad * producto.price,
-      0
-    );
-    setTotal(calculoTotal);
+    if (carrito && carrito.length > 0) {
+      const calculoTotal = carrito.reduce(
+        (total, producto) => total + producto.cantidad * producto.price,
+        0
+      );
+      setTotal(calculoTotal);
+    } else {
+      setTotal(0);
+    }
   }, [carrito]);
+
 
   return (
     <Layout title="Carrito de Compras">
       <h1>Carrito</h1>
       <div>
         <h2>Artículos</h2>
-        {carrito.length === 0
+        {!carrito || carrito.length === 0
           ? "carrito vacío"
           : carrito.map((producto) => (
               <div key={producto.id}>
