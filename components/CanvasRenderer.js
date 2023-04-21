@@ -133,7 +133,7 @@
               <input type="file" name="model" onChange={handleFileChange} />
             </label>
             <label>
-              Modelo:
+              Altura:
               <input type="number" name="height" onChange={handleHeight} />
             </label>
             <button type="submit">Enviar cotización</button>
