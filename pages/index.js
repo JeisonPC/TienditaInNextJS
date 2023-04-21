@@ -7,6 +7,7 @@ import { getProducts } from "./api/products";
 import Item from "../components/Item";
 import CanvasRenderer from "../components/CanvasRenderer";
 
+
 import styles from "../styles/index.module.scss";
 
 export default function Home({ products }) {

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import { SessionProvider } from 'next-auth/react';
 import "../styles/globals.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 config.autoAddCss = false;
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps: { session, ...pageProps } }) {
 
   const carritoLS = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('carrito')) ?? [] : []
 
@@ -59,12 +60,18 @@ export default function App({ Component, pageProps }) {
     setCarrito(carritoActualizado);
     window.localStorage.setItem("carrito", JSON.stringify(carrito));
   };
-  return pageReady ?
+  /* return pageReady ?
     <Component
       {...pageProps}
       carrito={carrito}
       agregarCarrito={agregarCarrito}
       eliminarProducto={eliminarProducto}
       actualizarCantidad={actualizarCantidad}
-    /> : null;
+    /> : null; */
+    return (
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
+    );
+
 }
