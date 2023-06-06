@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import NavBar from "../components/NavBar";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import Slider from "../components/slider";
 import { getProducts } from "./api/products";
 import Item from "../components/Item";

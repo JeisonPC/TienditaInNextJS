@@ -1,53 +1,43 @@
-import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { signIn } from '../../../services/auth';
+import NextAuth from "next-auth";
+import axios from "axios";
+import GoogleProvider from "next-auth/providers/google";
 
 export default NextAuth({
-  // Configure one or more authentication providers
+  // configure providers
   providers: [
-    CredentialsProvider({
-      name: 'Sign in with Email',
-      credentials: {
-        email: { label: 'Email', type: 'text' },
-        password: { label: 'Password', type: 'password' },
-      },
-      async authorize(credentials, req) {
-        /**
-         * This function is used to define if the user is authenticated or not.
-         * If authenticated, the function should return an object contains the user data.
-         * If not, the function should return `null`.
-         */
-        if (credentials == null) return null;
-        /**
-         * credentials is defined in the config above.
-         * We can expect it contains two properties: `email` and `password`
-         */
-        try {
-          const { user, jwt } = await signIn({
-            email: credentials.email,
-            password: credentials.password,
-          });
-          return { ...user, jwt };
-        } catch (error) {
-          // Sign In Fail
-          return null;
-        }
-      },
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code',
     }),
   ],
+
+  // configure callbacks
   callbacks: {
-    session: async ({ session, token }) => {
-      session.id = token.id;
-      session.jwt = token.jwt;
-      return Promise.resolve(session);
-    },
-    jwt: async ({ token, user }) => {
-      const isSignIn = user ? true : false;
-      if (isSignIn) {
+    async jwt(token, user) {
+      // Call your API to save the user in Strapi
+      console.log("perfil:",_profile)
+      if (user) {
         token.id = user.id;
-        token.jwt = user.jwt;
+        try {
+          const { email, name } = user.user;
+          const data = {
+            email: email,
+            password: "Hole123456",
+            username: email,
+          };
+          const config = {
+            headers: {
+              Authorization: `Bearer ${access_token}` // si necesita enviar el token de acceso en la solicitud
+            }
+          };
+          const response = await axios.post(`${process.env.STRAPI_URL}/auth/local/register`, data, config);
+          console.log(response.data);
+        } catch (error) {
+          console.error(error);
+        }
       }
-      return Promise.resolve(token);
+      return token;
     },
   },
 });

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import Item from "../components/Item";
 
 export default function tienda({data}) {
