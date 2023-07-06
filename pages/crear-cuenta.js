@@ -116,7 +116,7 @@ const CrearCuenta = () => {
         </GoogleOAuthProvider> */}
         <GoogleOAuthProvider
           clientId="266455807822-e34kito8ljg7p3kloascj6l3u8i8gfl3.apps.googleusercontent.com"
-          redirectUri="https://admin.prawie.com/auth/google/callback"
+          redirectUri="https://admin.prawie.com/api/google/callback"
         >
           <GoogleLogin onSuccess={handleSuccess} onFailure={handleFailure}>
             Iniciar sesión con Google
