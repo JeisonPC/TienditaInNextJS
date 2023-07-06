@@ -1,4 +1,4 @@
-import Head from 'next/head';
+/* import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import styles from '../../styles/Home.module.css';
@@ -21,3 +21,4 @@ export default function NotAuthenticated() {
     </div>
   );
 }
+ */

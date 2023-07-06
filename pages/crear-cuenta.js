@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import axios from "axios";
 import { css } from "@emotion/react";
 import Layout from "../components/Layout";
 import { Formulario, Campo, InputSubmit } from "../components/ui/formulario";
@@ -79,19 +80,33 @@ const CrearCuenta = () => {
 
           <InputSubmit type="submit" value="Crear Cuenta" />
         </Formulario>
+        <GoogleOAuthProvider clientId="266455807822-e34kito8ljg7p3kloascj6l3u8i8gfl3.apps.googleusercontent.com">
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              const { tokenId } = credentialResponse; // Obtén el token de acceso de Google
+
+              // Realiza una llamada a la API de Strapi para crear el usuario
+              axios
+                .post("https://prawie-backend.fly.dev/api/auth/local/register", {
+                  tokenId, // Pasa el token de acceso a la API
+                })
+                .then((response) => {
+                  console.log("Usuario creado:", response.data);
+                  // Realiza las acciones necesarias después de crear el usuario
+                })
+                .catch((error) => {
+                  console.error("Error al crear el usuario:", error);
+                  // Maneja el error de creación del usuario
+                });
+            }}
+            onError={() => {
+              console.log("Error de inicio de sesión con Google");
+            }}
+            useOneTap
+          />
+          ;
+        </GoogleOAuthProvider>
       </Layout>
-      <GoogleOAuthProvider clientId="266455807822-e34kito8ljg7p3kloascj6l3u8i8gfl3.apps.googleusercontent.com">
-        <GoogleLogin
-          onSuccess={(credentialResponse) => {
-            console.log(credentialResponse);
-          }}
-          onError={() => {
-            console.log("Login Failed");
-          }}
-          useOneTap
-        />
-        ;
-      </GoogleOAuthProvider>
     </div>
   );
 };

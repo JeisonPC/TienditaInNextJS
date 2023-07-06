@@ -1,4 +1,4 @@
-import Head from 'next/head';
+/* import Head from 'next/head';
 import styles from '../../styles/SignIn.module.scss';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -55,3 +55,4 @@ export default function SignIn() {
     </div>
   );
 }
+ */
