@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { SessionProvider } from 'next-auth/react';
 import "../styles/globals.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -61,7 +60,6 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
     window.localStorage.setItem("carrito", JSON.stringify(carrito));
   };
    return pageReady ?
-    <SessionProvider session={session}>
       <Component
         {...pageProps}
         carrito={carrito}
@@ -69,6 +67,5 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         eliminarProducto={eliminarProducto}
         actualizarCantidad={actualizarCantidad}
       />
-    </SessionProvider> : null;
 
 }
