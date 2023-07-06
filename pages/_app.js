@@ -4,49 +4,41 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 config.autoAddCss = false;
 
-export default function App({ Component, pageProps: { session, ...pageProps } }) {
-
-  const carritoLS = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('carrito')) ?? [] : []
+export default function App({ Component, pageProps }) {
+  const carritoLS =
+    typeof window !== "undefined" ? JSON.parse(localStorage.getItem("carrito")) ?? [] : [];
 
   const [pageReady, setPageReady] = useState(false);
-
-  useEffect(() => {
-    setPageReady(true)
-
-  }, [])
-
-
   const [carrito, setCarrito] = useState(carritoLS);
 
   useEffect(() => {
-    localStorage.setItem('carrito',JSON.stringify(carrito))
-  }, [carrito])
+    setPageReady(true);
+  }, []);
 
+  useEffect(() => {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }, [carrito]);
 
   const agregarCarrito = (producto) => {
-    // Comprobar si el producto ya esta en el carrito...
     if (carrito.some((productoState) => productoState.id === producto.id)) {
-      // Iterar para actualizar la cantidad
       const carritoActualizado = carrito.map((productoState) => {
         if (productoState.id === producto.id) {
           productoState.cantidad = producto.cantidad;
         }
         return productoState;
       });
-      // Se asigna al array
-      setCarrito([...carritoActualizado]);
-      localStorage.setItem("carrito", JSON.stringify(carrito));
+      setCarrito(carritoActualizado);
+      localStorage.setItem("carrito", JSON.stringify(carritoActualizado));
     } else {
-      // En caso de que el articulo no exista, es nuevo y se agrega
       setCarrito([...carrito, producto]);
-      localStorage.setItem("carrito", JSON.stringify(carrito));
+      localStorage.setItem("carrito", JSON.stringify([...carrito, producto]));
     }
   };
 
   const eliminarProducto = (id) => {
-    const carritoActualizado = carrito.filter((producto) => producto.id != id);
+    const carritoActualizado = carrito.filter((producto) => producto.id !== id);
     setCarrito(carritoActualizado);
-    window.localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("carrito", JSON.stringify(carritoActualizado));
   };
 
   const actualizarCantidad = (producto) => {
@@ -57,15 +49,16 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
       return productoState;
     });
     setCarrito(carritoActualizado);
-    window.localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("carrito", JSON.stringify(carritoActualizado));
   };
-   return pageReady ?
-      <Component
-        {...pageProps}
-        carrito={carrito}
-        agregarCarrito={agregarCarrito}
-        eliminarProducto={eliminarProducto}
-        actualizarCantidad={actualizarCantidad}
-      />
 
+  return pageReady ? (
+    <Component
+      {...pageProps}
+      carrito={carrito}
+      agregarCarrito={agregarCarrito}
+      eliminarProducto={eliminarProducto}
+      actualizarCantidad={actualizarCantidad}
+    />
+  ) : null;
 }
