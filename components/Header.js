@@ -1,6 +1,5 @@
 import React from "react";
 import Navbar from "./NavBar";
-import LoginBtn from "./LoginBtn";
 import styles from "../styles/header.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
@@ -15,8 +14,7 @@ export default function Header() {
         <Link href={"/carrito"}>
           <FontAwesomeIcon icon={faBasketShopping} />
         </Link>
-        <LoginBtn/>
-      </header>
+       </header>
     </>
   );
 }
