@@ -80,14 +80,14 @@ const CrearCuenta = () => {
 
           <InputSubmit type="submit" value="Crear Cuenta" />
         </Formulario>
-        <GoogleOAuthProvider clientId="266455807822-e34kito8ljg7p3kloascj6l3u8i8gfl3.apps.googleusercontent.com">
+        {/* <GoogleOAuthProvider clientId="266455807822-e34kito8ljg7p3kloascj6l3u8i8gfl3.apps.googleusercontent.com">
           <GoogleLogin
             onSuccess={(credentialResponse) => {
               const { tokenId } = credentialResponse; // Obtén el token de acceso de Google
 
               // Realiza una llamada a la API de Strapi para crear el usuario
               axios
-                .post("https://prawie-backend.fly.dev/api/auth/local/register", {
+                .post("https://admin.prawie.com/api/auth/local/register", {
                   tokenId, // Pasa el token de acceso a la API
                 })
                 .then((response) => {
@@ -105,6 +105,14 @@ const CrearCuenta = () => {
             useOneTap
           />
           ;
+        </GoogleOAuthProvider> */}
+        <GoogleOAuthProvider
+          clientId="266455807822-e34kito8ljg7p3kloascj6l3u8i8gfl3.apps.googleusercontent.com"
+          redirectUri="https://admin.prawie.com/auth/google/callback"
+        >
+          <GoogleLogin onSuccess={handleSuccess} onFailure={handleFailure}>
+            Iniciar sesión con Google
+          </GoogleLogin>
         </GoogleOAuthProvider>
       </Layout>
     </div>
