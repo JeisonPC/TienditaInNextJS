@@ -31,6 +31,14 @@ const CrearCuenta = () => {
     console.log("Creando Cuenta...");
   }
 
+  const handleSuccess = (response) => {
+    // Manejar la respuesta de inicio de sesión exitoso aquí
+  };
+
+  const handleFailure = (response) => {
+    // Manejar la respuesta de inicio de sesión fallido aquí
+  };
+
   return (
     <div>
       <Layout>
