@@ -89,20 +89,6 @@ const CrearCuenta = () => {
           <InputSubmit type="submit" value="Crear Cuenta" />
         </Formulario>
 
-        <GoogleOAuthProvider
-          clientId="266455807822-e34kito8ljg7p3kloascj6l3u8i8gfl3.apps.googleusercontent.com"
-          redirectUri="https://admin.prawie.com/api/google/callback"
-        >
-          <GoogleLogin
-            onSuccess={(credentialResponse) => {
-              console.log(credentialResponse);
-            }}
-            onError={() => {
-              console.log("Login Failed");
-            }}
-            useOneTap
-          />
-        </GoogleOAuthProvider>
       </Layout>
     </div>
   );
