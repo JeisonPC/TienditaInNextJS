@@ -39,7 +39,8 @@ export default function Carrito({ carrito, actualizarCantidad, eliminarProducto 
                     width={150}
                     height={150}
                     src={producto.imagen}
-                    alt={producto.title}
+                    alt={producto.name}
+                    priority={true}
                   />
                 </div>
                 <p>{producto.title}</p>

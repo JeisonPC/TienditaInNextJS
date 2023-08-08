@@ -22,10 +22,10 @@ export default function Producto({
     }
 
     const ProductoElegido = {
-      id: producto[0].id,
+      id: producto.id,
       name,
       price,
-      imagen: photos.data[0].attributes.url,
+      imagen: photos[0].url,
       cantidad,
     };
 
