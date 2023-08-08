@@ -23,6 +23,10 @@ import { Navigation } from "swiper";
 import Link from "next/link";
 
 export default function Slider() {
+  const imageStyles = {
+    width: "50%", // Cambia el porcentaje según tus necesidades
+    height: "100%", // Cambia el porcentaje según tus necesidades
+  };
   return (
     <>
       <Swiper
@@ -36,8 +40,7 @@ export default function Slider() {
             priority={true}
             src={Banner}
             alt="Banner"
-            width="50%"
-            height="50%"
+            style={imageStyles}
           />
           <div className={styles.rigth}>
             <h1 className={styles.swiperSlideText}>Esto es PRAWIE</h1>
@@ -50,8 +53,7 @@ export default function Slider() {
             priority={true}
             src={Banner2}
             alt="Banner"
-            width="50%"
-            height="50%"
+            style={imageStyles}
           />
           <h2 className={styles.swiperSlideTextInv}>La mejor Tiendita</h2>
         </SwiperSlide>

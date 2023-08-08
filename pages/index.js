@@ -10,36 +10,34 @@ import CanvasRenderer from "../components/CanvasRenderer";
 
 import styles from "../styles/index.module.scss";
 
-export default function Home({ products }) {
-  console.log("productos de la página inicial", products);
+export default function Home({ productos }) {
+  console.log("productos de la página inicial", productos);
   return (
     <>
       <Layout title={"Inicio"} description={"Tiendita Amigable"}>
         <Slider />
         <div className={styles.containerProducts}>
-          {products.map((producto) => (
+          {productos.map((producto) => (
             <Item
               key={producto.id}
-              id={producto.id}
-              producto={producto.attributes}
+              producto={producto}
             />
           ))}
         </div>
-        <CanvasRenderer />
       </Layout>
     </>
   );
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(
-    "https://prawie-backend.fly.dev/api/products?populate=*"
-  );
-  const { data: products } = await res.json();
+  const apiUrl = process.env.API_URL;
+
+  const res = await fetch(apiUrl + "/api/v1/products");
+  const productos = await res.json();
 
   return {
     props: {
-      products,
+      productos,
     },
   };
 }

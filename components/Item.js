@@ -7,23 +7,28 @@ import Link from "next/link";
 
 import styles from "../styles/components/products.module.scss";
 
-export default function Productos(producto, key) {
-  const { title, price, images, description } = producto.producto;
-
-  console.log("item", producto.id);
+export default function Item({producto}) {
+  const { name, price, photos, description } = producto;
+  console.log("Pagina del item", producto)
 
   return (
-    <div key={key} className={styles.cardProducts}>
+    <div className={styles.cardProducts}>
       <div className={styles.cardImg}>
+      {photos && photos.length > 0 ? (
         <Image
-          src={images.data[0].attributes.formats.medium.url}
+          src={photos[0].url}
           width={100}
           height={100}
           sizes="100vw"
-          alt={`Imagen producto ${title}`}
+          alt={`Imagen producto ${name}`}
+          priority={true}
         />
-      </div>
+      ) : (
+        <p>No hay fotos disponibles</p>
+      )}
+    </div>
       <div>
+        <h2>{name}</h2>
         <p>{description}</p>
         <h3>{price}</h3>
       </div>

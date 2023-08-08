@@ -4,13 +4,14 @@ import Image from "next/image";
 import Layout from "../../components/Layout";
 
 export default function Producto({
-  productoId,
+  producto,
   agregarCarrito,
   actualizarCantidad,
 }) {
   const [cantidad, setCantidad] = useState(0);
-   const { title, price, images, description } = productoId[0].attributes;
-  console.log("pagina show producto", productoId);
+  console.log("pagina show producto", producto);
+   const { name, price, photos, description } = producto;
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,10 +22,10 @@ export default function Producto({
     }
 
     const ProductoElegido = {
-      id: productoId[0].id,
-      title,
+      id: producto[0].id,
+      name,
       price,
-      imagen: images.data[0].attributes.url,
+      imagen: photos.data[0].attributes.url,
       cantidad,
     };
 
@@ -36,16 +37,16 @@ export default function Producto({
   return (
     <Layout>
       <div>
-         <h2>{title} </h2>
+         <h2>{name} </h2>
         <p>{description}</p>
         <p>{price}</p>
 
-        {images.data.map((image, index) => (
+        {photos.map((photo, index) => (
           <Image
-            src={image.attributes.formats.medium.url}
+            src={photo.url}
             width={600}
             height={400}
-            alt={`Imagen producto ${title}`}
+            alt={`Imagen producto ${name}`}
             key={index}
           />
         ))}
@@ -70,16 +71,15 @@ export default function Producto({
 }
 
 export async function getServerSideProps({ params: { url } }) {
-  const respuesta = await fetch(
-    `https://prawie-backend.fly.dev/api/products?filters[id]=${url}&populate=images`
-  );
-  const { data: productoId } = await respuesta.json();
+  const api_url = process.env.API_URL
+  const res = await fetch(`${api_url}/api/v1/products/${url}`);
+  const producto = await res.json();
 
-  console.log("propsproduct", productoId);
+  console.log("propsproduct", producto);
 
   return {
     props: {
-      productoId,
+      producto,
     }, // will be passed to the page component as props
   };
 }

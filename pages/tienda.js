@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import Item from "../components/Item";
 
-export default function tienda({data}) {
-  console.log("productos en tienda.js", data[0].id);
+export default function tienda({productos}) {
+  console.log("productos en tienda.js", productos);
 
   return (
     <Layout>
       <h1>Colección</h1>
 
-      {data.map(producto => (
+      {productos.map((producto) => (
         <Item
           key={producto.id}
           id= {producto.id}
-          producto={producto.attributes}
+          producto={producto}
         />
       ))}
 
@@ -21,21 +21,17 @@ export default function tienda({data}) {
   );
 }
 
-async function obtenerProductos() {
-  const res = await fetch('https://prawie-backend.fly.dev/api/products?populate=*');
-  const productos = await res.json();
-  return productos;
-}
-
 export async function getServerSideProps() {
-  const respuesta = await fetch(`https://prawie-backend.fly.dev/api/products?populate=*`)
-  const {data} = await respuesta.json();
+  const apiUrl = process.env.API_URL;
 
-  console.log("productos en tienda.js backend",data)
+  const res = await fetch(apiUrl + "/api/v1/products")
+  const productos = await res.json();
+
+  console.log("productos en tienda.js backend", productos)
 
   return {
     props: {
-      data,
+      productos,
     }, // will be passed to the page component as props
   };
 }
